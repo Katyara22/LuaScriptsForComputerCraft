@@ -16,7 +16,7 @@ gasolineBtn.onClick(function ()
     if hasWork == true then
         hasWork = false;
         gasolineBtn.setColor(colors.red);
-    elseif hawWork == false then
+    elseif hasWork == false then
         hasWork = true;
         gasolineBtn.setColor(colors.green);
     end;
