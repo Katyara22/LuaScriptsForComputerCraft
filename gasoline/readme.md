@@ -27,7 +27,7 @@ gasolineBtn.onClick(function () -- add event to button
     if hasWork == true then
         hasWork = false; -- set redstone work false
         gasolineBtn.setColor(colors.red); -- set color red
-    elseif false == false then
+    elseif hasWork == false then
         hasWork = true; -- set redstone work true
         gasolineBtn.setColor(colors.green); -- set color green
     end;
