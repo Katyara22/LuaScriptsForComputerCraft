@@ -6,7 +6,9 @@ id, data = rednet.receive()
 if id == config.serverId then
     if data.isStart == true then
         redstone.setOutput(config.redstoneActiveSide, true);
-    else
+    elseif data.isStart == false then
         redstone.setOutput(config.redstoneActiveSide, false);
+    elseif data.isReboot == true then
+        shell.run("reboot")
     end
 end
