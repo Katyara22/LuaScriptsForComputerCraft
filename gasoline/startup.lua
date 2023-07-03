@@ -1,4 +1,4 @@
-os.lodaAPI("config.lua")
+os.loadAPI("config.lua")
 
 rednet.open(config.modemSide)
 id, data = rednet.receive()
