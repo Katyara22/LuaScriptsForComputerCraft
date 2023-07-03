@@ -1,46 +1,14 @@
--- config
-local config = {
-    monitorSide = "left";
-    gasolineBtnLabel = "Craft gasoline";
-}
+os.lodaAPI("config.lua")
 
-os.loadAPI("api/button.lua");
+rednet.open(config.modemSide)
+id, data = rednet.receive()
 
-local monitor = peripheral.wrap(config.monitorSide);
-
-button.setMonitor(monitor);
-
-local runnig = true;
-
-local hasWorkBtn = {
-    gasoline = false;
-}
-
-gasolineBtn = button.create(config.gasolineBtnLabel);
-
-gasolineBtn.setPos(2, 2);
-
-gasolineBtn.setColor(colors.red);
-
-gasolineBtn.onClick(function()
-    if hasWorkBtn.gasoline == true then
-        hasWorkBtn.gasoline = false;
-        gasolineBtn.setColor(colors.red);
-    elseif hasWorkBtn.gasoline == false then
-        hasWorkBtn.gasoline = true;
-        gasolineBtn.setColor(colors.green);
-    end;
-end);
-
-while runnig do
-    if hasWorkBtn.gasoline == true then
-        redstone.setOutput("back", true);
-    elseif hasWorkBtn.gasoline == false then
-        redstone.setOutput("back", false);
-    end;
-
-    monitor.setCursorPos(4, 4);
-    monitor.write(timeoutMinutes);
-
-    button.await(gasolineBtn);
-end;
+if id == config.serverId then
+    if data.isStart == true then
+        redstone.setOutput(config.redstoneActiveSide, true);
+    elseif data.isStart == false then
+        redstone.setOutput(config.redstoneActiveSide, false);
+    elseif data.isReboot == true then
+        shell.run("reboot")
+    end
+end
